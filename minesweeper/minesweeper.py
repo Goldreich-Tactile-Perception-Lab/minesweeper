@@ -14,9 +14,10 @@ class Game(object):
         self.width = config.width
         self.height = config.height
         self.num_mines = config.num_mines
-        self.board = [[False for y in range(self.height)] for x in range(self.width)]
-        self.exposed = [[False for y in range(self.height)] for x in range(self.width)]
-        self.counts = [[0 for y in range(self.height)] for x in range(self.width)]
+        # Create "Arrays" as lists of lists to keep track of game board
+        self.board = [[False for y in range(self.height)] for x in range(self.width)] # Mines
+        self.exposed = [[False for y in range(self.height)] for x in range(self.width)] # Exposed Squares
+        self.counts = [[0 for y in range(self.height)] for x in range(self.width)] # Square Numbers
         self.num_moves = 0
         self.num_safe_squares = self.width * self.height - self.num_mines
         self.num_exposed_squares = 0
