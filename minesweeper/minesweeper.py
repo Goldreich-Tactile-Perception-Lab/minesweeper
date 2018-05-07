@@ -77,13 +77,13 @@ class Game(object):
 
     def _init_counts(self):
         """Calculates how many neighboring squares have minds for all squares"""
-        for x in range(self.width):
-            for y in range(self.height):
-                for x_offset in [-1, 0, 1]:
-                    for y_offset in [-1, 0, 1]:
-                        if x_offset != 0 or y_offset != 0:
-                            if not self._is_outside_board(x + x_offset, y + y_offset):
-                                self.counts[x][y] += int(self.board[x + x_offset][y + y_offset])
+        for x in range(self.width): #iterates through all x values on the board
+            for y in range(self.height): #iterates through all y values on the board
+                for x_offset in [-1, 0, 1]: #iterates through offsets ie. left, center, right
+                    for y_offset in [-1, 0, 1]: #iterates throuhg y offsets ie. bottom, center, top
+                        if x_offset != 0 or y_offset != 0: #if neither at least on is not zero ie. not center square
+                            if not self._is_outside_board(x + x_offset, y + y_offset): #if coordinate is within board
+                                self.counts[x][y] += int(self.board[x + x_offset][y + y_offset]) #convert the mine booleans into integers and count
 
     def _update_board(self, x, y):
         """
