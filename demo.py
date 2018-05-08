@@ -33,15 +33,22 @@ class RandomAI(ms.GameAI):
         counts = np.array(game.counts)
 
         exposed_locations = np.where(exposed)
+        unexposed_locations = np.where(~exposed) # "inverses" the True/False list so we can get the index of every location still unexposed
+        num_unexposed = np.count_nonzero(exposed == False) # Number of unexposed locations, can be used to figure out prior
 
-        #Next, we can use these indices to pull out our "counts"
+        self.prior = game.num_mines/num_unexposed # Prior probability for every square should be number of mines left / number of possible spaces
+
+        # Next, we can use these indices to pull out our "counts"
+
         known = counts[exposed_locations]
+
         # Now we have locations, and the counts at each of those locations
 
         print(known)
         print(exposed_locations)
+        print("(Prior) probability of randomly getting bomb = {0}".format(self.prior))
 
-        # Note that what will be shown on the screen is the state of the screen AFTER a choice has been made. So information at this stage will be one move behind.
+        # Note that what will be shown on the screen is the state of the screen AFTER a choice has been made. So information at this stage will be one move behind the moves made.
 
         while True:
             x = random.randint(0, self.width - 1)
