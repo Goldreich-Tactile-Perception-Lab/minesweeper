@@ -203,7 +203,7 @@ def run_games(config, num_games, ai, viz=None):
         ai.init(config)
         if viz: viz.start(game)
         while not game.is_game_over():
-            coords = ai.next()
+            coords = ai.next(game) # by sending 'game' into the ai's next function, we can push information from the game to the AI
             result = game.select(*coords)
             if result is None:
                 continue

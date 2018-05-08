@@ -2,7 +2,7 @@ import minesweeper as ms
 import random
 
 
-class RandomAI(ms.GameAI):
+class SeqAI(ms.GameAI):
     def __init__(self):
         self.width = 0
         self.height = 0
@@ -35,8 +35,8 @@ class RandomAI(ms.GameAI):
 
 
 num_games = 1
-config = ms.GameConfig()
-ai = RandomAI()
+config = ms.GameConfig() # Sets 3 variables: height, width, and # of mines. This is then used throughout rest of program.
+ai = SeqAI()
 viz = ms.GameVisualizer('key')
 results = ms.run_games(config, 1, ai, viz)
 if results[0].success:
