@@ -2,7 +2,7 @@ import minesweeper as ms
 import random
 import numpy as np
 
-
+hello
 class RandomAI(ms.GameAI):
     def __init__(self):
         self.width = 0
@@ -39,10 +39,21 @@ class RandomAI(ms.GameAI):
         self.prior = game.num_mines/num_unexposed # Prior probability for every square should be number of mines left / number of possible spaces
 
         # Next, we can use these indices to pull out our "counts"
+        # Basically, we should
+        # - Find way of figuring out number of unexposed locations next to our exposed location with a count
+        # - Probability of bomb surrounding exposed location = count/unexposed_surrounding_locations
+        # - Use OR rule and then apply Bayes across entire gameboard to normalize and calculate probablility of bomb at any locations
+        # - We need a way of the AI flagging locations and thus adjusting counts and probabilites around flag as well
 
         known = counts[exposed_locations]
 
         # Now we have locations, and the counts at each of those locations
+        # Loop through every location, calulate "likelihood" base on touching exposed counts
+        # Every unexposed box not touching a count gets a flat prior based on remaining objects
+        # Normalize using Bayes
+        # Flag and readjust
+        # Keep doing this in loop until "satisfied" that there are no more locations you should flag
+        # click new unexposed tile base on lowest estimate
 
         print(known)
         print(exposed_locations)
@@ -65,9 +76,9 @@ class RandomAI(ms.GameAI):
 
 
 num_games = 1
-config = ms.GameConfig() # sets 3 variables: height, width, and number of mines. These are used throughout the program to define the game.
+config = ms.GameConfig(5,5,2) # sets 3 variables: height, width, and number of mines. These are used throughout the program to define the game.
 ai = RandomAI()
-viz = ms.GameVisualizer('key') # 'key' if you want enter. Else, number is seconds (must be integer)
+viz = ms.GameVisualizer(1) # 'key' if you want enter. Else, number is seconds (must be integer)
 results = ms.run_games(config, 1, ai, viz)
 if results[0].success:
     print('Success!')
